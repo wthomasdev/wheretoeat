@@ -11,15 +11,15 @@ router.get('/', function(req, res, next) {
   })
 });
 
-router.get('/login', function(req, res, next){
+router.get('/login', auth.isLoggedIn, function(req, res, next){
   res.render('login')
 })
 
-router.get('/signup', function(req, res, next){
+router.get('/signup', auth.isLoggedIn, function(req, res, next){
   res.render('signup')
 })
 
-router.get('/home', function(req, res, next){
+router.get('/home', auth.isNotLoggedIn, function(req, res, next){
   db.findUserById(req.session.userId)
   .then(function (user) {
     res.render('home', {user: user})
@@ -31,7 +31,8 @@ router.get('/logout', function(req, res, next){
   res.redirect('/')
 })
 
-router.post('/signup', function(req, res, next) {
+
+router.post('/signup', auth.isLoggedIn,  function(req, res, next) {
   db.findUserByName(req.body.username).then(function(user) {
     if (user) {
       res.render('signup', {error:"Username already exists"});
