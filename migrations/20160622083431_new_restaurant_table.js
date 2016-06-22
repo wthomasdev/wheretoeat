@@ -4,10 +4,11 @@ exports.up = function(knex, Promise) {
     table.increments();
     table.string('name');
     table.string('food_type');
-    table.string('description');
+    table.text('description');
+    table.integer('user_id').references('id').inTable('user').onDelete('cascade');
   })
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTableIfExists('restuarant');
+  return knex.schema.dropTableIfExists('restaurant');
 };
