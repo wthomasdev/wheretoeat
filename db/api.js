@@ -5,6 +5,9 @@ module.exports = {
     return knex('user').select().where({username: username}).first()
   },
   addUser: function (body) {
-    knex('user').insert(body,'id');
+    return knex('user').insert(body,'id');
+  },
+  findUserById: function (id) {
+    return knex('user').select().where({id: id}).first()
   }
 }

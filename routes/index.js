@@ -2,14 +2,13 @@ var express = require('express');
 var router = express.Router();
 var knex = require('../db/knex');
 var db = require('../db/api');
-
+var auth = require('../auth')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   knex('restaurant').then(function(restaurant) {
     res.render('index', { title: 'What would you like to eat?', restaurant:restaurant});
   })
-
 });
 router.get('/login', function(req, res, next){
   res.render('login')
@@ -17,6 +16,13 @@ router.get('/login', function(req, res, next){
 
 router.get('/signup', function(req, res, next){
   res.render('signup')
+})
+
+router.get('/home', function(req, res, next){
+  db.findUserById(req.session.userId)
+  .then(function (user) {
+    res.render('home', {user: user})
+  })
 })
 
 router.post('/signup', function(req, res, next) {
@@ -29,6 +35,8 @@ router.post('/signup', function(req, res, next) {
         res.redirect('/home');
       })
     }
+  }).catch(function(error){
+    next(error)
   })
 })
 
