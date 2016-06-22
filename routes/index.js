@@ -10,6 +10,7 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'What would you like to eat?', restaurant:restaurant});
   })
 });
+
 router.get('/login', function(req, res, next){
   res.render('login')
 })
@@ -23,6 +24,11 @@ router.get('/home', function(req, res, next){
   .then(function (user) {
     res.render('home', {user: user})
   })
+})
+
+router.get('/logout', function(req, res, next){
+  req.session = null
+  res.redirect('/')
 })
 
 router.post('/signup', function(req, res, next) {
