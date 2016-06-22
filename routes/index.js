@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var knex = require('../db/knex')
+var knex = require('../db/knex');
+var db = require('../db/api');
 
 
 /* GET home page. */
@@ -13,7 +14,23 @@ router.get('/', function(req, res, next) {
 router.get('/login', function(req, res, next){
   res.render('login')
 })
+
 router.get('/signup', function(req, res, next){
   res.render('signup')
 })
+
+router.post('/signup', function(req, res, next) {
+  db.findUserByName(req.body.username).then(function(user) {
+    if (user) {
+      res.render('signup', {error:"Username already exists"});
+    } else {
+      auth.createUser(req.body).then(function(id) {
+        req.session.userId = id;
+        res.redirect('/home');
+      })
+    }
+  })
+})
+
+
 module.exports = router;
