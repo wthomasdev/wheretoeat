@@ -5,12 +5,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var session = require('cookie-session');
 var bodyParser = require('body-parser');
-
+var auth = require('./auth')
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-var app = express();
+require('dotenv').load()
 
+var app = express();
+app.use(auth.passport.initialize())
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');

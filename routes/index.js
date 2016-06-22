@@ -31,6 +31,18 @@ router.get('/logout', function(req, res, next){
   res.redirect('/')
 })
 
+router.post('/login', function(req, res, next){
+  auth.passport.authenticate('local', function(error, user, info){
+    console.log('hitting log in')
+    //test lucas 1234
+    if(error){
+      res.render('login', {error: error})
+    } else if (user){
+      req.session.userId = user.id
+      res.redirect('/home')
+    }
+  })(req, res, next)
+})
 
 router.post('/signup', auth.isLoggedIn,  function(req, res, next) {
   db.findUserByName(req.body.username).then(function(user) {

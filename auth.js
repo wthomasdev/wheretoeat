@@ -1,9 +1,25 @@
 var db = require('./db/api')
 var bcrypt = require('bcrypt');
+var passport = require('passport')
+var localStrategy = require('passport-local')
 
+passport.use(new localStrategy(function (username, password, done){
+  console.log('logging in')
+  db.findUserByName(username).then(function(user, error){
+    if(!user){
+      done('error: user does not exist')
+    } else if (user && bcrypt.compareSync(password, user.password)) {
+      done(null, user)
+    } else {
+      done('error: password is incorrect')
+    }
+  })
+}))
 
 
 module.exports = {
+  passport: passport,
+
   createUser: function(body) {
     var hash = bcrypt.hashSync(body.password, 8)
     body.password = hash
