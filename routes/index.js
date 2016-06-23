@@ -67,4 +67,17 @@ router.get('/add', function(req, res, next) {
 
 });
 
+router.post('/add', function(req, res, next) {
+  db.addRestaurant(req.body).then(function() {
+    console.log('added');
+    res.redirect('/home');
+  })
+})
+
+router.get('/myrestaurants', function(req, res, next) {
+  db.getRestaurants(req.session.userId).then(function (restaurants) {
+    res.render('myrestaurants', {restaurants:restaurants})
+  })
+})
+
 module.exports = router;
