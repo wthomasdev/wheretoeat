@@ -11,6 +11,6 @@ module.exports = {
     return knex('user').select().where({id: id}).first()
   },
   getUserId: function () {
-    return knex('user').select('id').where('user.id',req.session.userId);
+    return knex('user').select().where('user.id', 17);
   }
 }
