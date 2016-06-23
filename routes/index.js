@@ -60,7 +60,7 @@ router.post('/signup', auth.isLoggedIn,  function(req, res, next) {
 })
 
 router.get('/add', function(req, res, next) {
-  db.getUserId().then(function(user) {
+  db.getUserId(req.session.userId).then(function(user) {
     console.log(user);
     res.render('add', {user:user})
   })
