@@ -9,5 +9,8 @@ module.exports = {
   },
   findUserById: function (id) {
     return knex('user').select().where({id: id}).first()
+  },
+  getUserId: function () {
+    return knex('user').select('id').where('user.id',req.session.userId);
   }
 }
