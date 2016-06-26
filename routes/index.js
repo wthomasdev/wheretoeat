@@ -38,8 +38,8 @@ router.post('/login', function(req, res, next){
     if(error){
       res.render('login', {error: error})
     } else if (user){
-      console.log(req.session.userId)
       req.session.userId = user.id
+      console.log(req.session.userId)
       res.redirect('/home')
     }
   })(req, res, next)
