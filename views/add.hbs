@@ -2,9 +2,7 @@
   <input type="text" name="name" value="" placeholder="Restaurant name">
   <input type="text" name="food_type" value="" placeholder="Type of food">
   <textarea name="description" rows="8" cols="40" placeholder="Description of restaurant"></textarea>
-  <select name="user_id">
-    <option value="{{user.id}}">{{user.id}}</option>
-  </select>
+    <input type="hidden" name="user_id" value="{{user.id}}"></option>
   <button type="submit">Add restaurant</button>
 
 </form>
