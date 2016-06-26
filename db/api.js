@@ -12,5 +12,11 @@ module.exports = {
   },
   getUserId: function (id) {
     return knex('user').select().where('user.id', id).first();
+  },
+  addRestaurant: function(body) {
+    return knex('restaurant').insert(body);
+  },
+  getRestaurants: function(id) {
+    return knex('restaurant').where('user_id', id)
   }
 }
