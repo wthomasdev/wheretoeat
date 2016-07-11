@@ -23,7 +23,7 @@ module.exports = {
   createUser: function(body) {
     var hash = bcrypt.hashSync(body.password, 8)
     body.password = hash
-    return db.addUser(body).then(function(id) {
+    return db.addUser(body).  then(function(id) {
       return id[0];
     })
   },
